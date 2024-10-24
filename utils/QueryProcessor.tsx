@@ -13,7 +13,7 @@ export default function QueryProcessor(query: string): string {
     return ( "ndevidze" );
   }
 
-  if (query.toLowerCase().includes("ndevidze")) {
+  if (query.toLowerCase().includes("What is your name")) {
     //TODO add your Andrew ID below
     //TODO update the corresponding test case in __tests__
     return ( "ndevidze" );
