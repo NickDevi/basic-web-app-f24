@@ -69,6 +69,14 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("to the power of")) {
+    const parts = query.split(" ");
+    const base = parseInt(parts[2]);
+    const exponent = parseInt(parts[6]);
+    if (!isNaN(base) && !isNaN(exponent)) {
+      return Math.pow(base, exponent).toString();
+    }
+  }
   // Handle predefined queries like Shakespeare, Andrew ID, or name
   if (query.toLowerCase().includes("shakespeare")) {
     return (
