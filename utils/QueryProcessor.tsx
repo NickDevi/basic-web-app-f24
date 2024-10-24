@@ -1,11 +1,10 @@
 export default function QueryProcessor(query: string): string {
-  // Check for arithmetic "plus" operations
+  // Check for arithmetic "plus" operations with multiple numbers
   if (query.toLowerCase().includes("plus")) {
-    const parts = query.split(" ");
-    const num1 = parseInt(parts[2]);
-    const num2 = parseInt(parts[4]);
-    if (!isNaN(num1) && !isNaN(num2)) {
-      return (num1 + num2).toString();
+    const numbers = query.match(/\d+/g)?.map(Number); // Extract all numbers from the query
+    if (numbers && numbers.length > 0) {
+      const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+      return sum.toString();
     }
   }
 
@@ -26,6 +25,16 @@ export default function QueryProcessor(query: string): string {
     const num2 = parseInt(parts[5]);
     if (!isNaN(num1) && !isNaN(num2)) {
       return (num1 * num2).toString();
+    }
+  }
+
+  // Check for powers (e.g., "91 to the power of 39")
+  if (query.toLowerCase().includes("to the power of")) {
+    const parts = query.split(" ");
+    const base = parseInt(parts[2]);
+    const exponent = parseInt(parts[6]);
+    if (!isNaN(base) && !isNaN(exponent)) {
+      return Math.pow(base, exponent).toString();
     }
   }
 
