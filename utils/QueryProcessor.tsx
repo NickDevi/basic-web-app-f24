@@ -8,6 +8,8 @@ export default function QueryProcessor(query: string): string {
       return (num1 + num2).toString();
     }
   }
+
+  // Check for arithmetic "minus" operations
   if (query.toLowerCase().includes("minus")) {
     const parts = query.split(" ");
     const num1 = parseInt(parts[2]);
@@ -36,19 +38,7 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  // Check for square and cube numbers
-  if (query.toLowerCase().includes("square and a cube")) {
-    const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
-    if (numbers && numbers.length > 0) {
-      const result = numbers.filter(num => isSquare(num) && isCube(num));
-      if (result.length > 0) {
-        return result.join(", ");
-      } else {
-        return "No numbers found that are both squares and cubes.";
-      }
-    }
-  }
-  
+  // Check for prime number queries
   if (query.toLowerCase().includes("primes")) {
     const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
     if (numbers && numbers.length > 0) {
@@ -57,6 +47,7 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  // Check for square and cube numbers
   if (query.toLowerCase().includes("square and a cube")) {
     const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
     if (numbers && numbers.length > 0) {
@@ -88,6 +79,15 @@ export default function QueryProcessor(query: string): string {
   }
 
   return "";
+
+  // Helper function to check if a number is a prime
+  function isPrime(num: number): boolean {
+    if (num < 2) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+      if (num % i === 0) return false;
+    }
+    return true;
+  }
 
   // Helper function to check if a number is a perfect square
   function isSquare(num: number): boolean {
