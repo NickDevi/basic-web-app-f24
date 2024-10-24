@@ -48,6 +48,26 @@ export default function QueryProcessor(query: string): string {
       }
     }
   }
+  
+  if (query.toLowerCase().includes("primes")) {
+    const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
+    if (numbers && numbers.length > 0) {
+      const primes = numbers.filter(isPrime);
+      return primes.length > 0 ? primes.join(", ") : "No prime numbers found.";
+    }
+  }
+
+  if (query.toLowerCase().includes("square and a cube")) {
+    const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
+    if (numbers && numbers.length > 0) {
+      const result = numbers.filter(num => isSquare(num) && isCube(num));
+      if (result.length > 0) {
+        return result.join(", ");
+      } else {
+        return "No numbers found that are both squares and cubes.";
+      }
+    }
+  }
 
   // Handle predefined queries like Shakespeare, Andrew ID, or name
   if (query.toLowerCase().includes("shakespeare")) {
