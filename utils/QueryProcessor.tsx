@@ -1,4 +1,24 @@
 export default function QueryProcessor(query: string): string {
+  // Check for arithmetic "plus" operations
+  if (query.toLowerCase().includes("plus")) {
+    const parts = query.split(" ");
+    const num1 = parseInt(parts[2]);
+    const num2 = parseInt(parts[4]);
+    if (!isNaN(num1) && !isNaN(num2)) {
+      return (num1 + num2).toString();
+    }
+  }
+
+  // Check for largest number queries
+  if (query.toLowerCase().includes("largest")) {
+    const numbers = query.match(/\d+/g)?.map(Number); // Extract numbers from the query
+    if (numbers && numbers.length > 0) {
+      const largest = Math.max(...numbers);
+      return largest.toString();
+    }
+  }
+
+  // Handle predefined queries like Shakespeare, Andrew ID, or name
   if (query.toLowerCase().includes("shakespeare")) {
     return (
       "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
@@ -8,15 +28,12 @@ export default function QueryProcessor(query: string): string {
   }
 
   if (query.toLowerCase().includes("andrew id")) {
-    //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
-    return ( "ndevidze" );
+    // Add your Andrew ID below
+    return "ndevidze";
   }
 
   if (query.toLowerCase().includes("name")) {
-    //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
-    return ( "ndevidze" );
+    return "ndevidze";
   }
 
   return "";
